@@ -44,8 +44,8 @@ headers = {
 
 
 
-PointA=[37.353293, 55.571427]
-PointB=[37.854111, 55.920065]
+PointA=[37.104876, 55.573656]
+PointB=[38.153215, 55.923838]
 
 # PointA=[29.151358, 52.007652]
 # PointB=[29.270607, 52.103733]
@@ -61,168 +61,50 @@ LastSeenTime1 = [time.time()-DurBetween for _ in range(len(coord))]
 PrevName = int(time.time()//UpdateTime)
 
 
-def BackUp(TextArray, name):
-    with open(f"data/{name}.txt", 'w') as file:
-        try:
-            for string in TextArray:
-                file.write(string + '\n')
-        except:
-            pass
+from concurrent.futures import ThreadPoolExecutor
 
-def are_different(array1, array2):
-    for i in range(len(array1)):
-        if array1[i] == array2[i]:
-            return False  
-
-    return True
-
-def CheckforUpdate():
-    global LastSeenTime1
-    while True:
-        # while are_different(LastSeenTime, LastSeenTime1):
-        if False:
-            ksis = int(time.time()//UpdateTime)
-            BackUp(printed_positions, ksis)
-            printed_positions.clear()
-            done_drive.clear()
-            print(f"Saved {len(printed_positions)} coordinates" )
-            
-            LastSeenTime1=LastSeenTime
-            PrevName = ksis
-            # if ksis != PrevName: #back up of printed_positions
-
-
-def DoUpdate(Points, i):
-    while True:
-
-        # while(time.time() - LastSeenTime[i] >= DurBetween):
-        #     pass
-
-        # dag=0
-        # for cc in range(len(LastSeenTime)):
-        #     if LastSeenTime1[cc] == LastSeenTime[cc]:
-        #         dag+=1
-
-        # print(dag)
+def process_point(PointC):
+    data['point'] = PointC
+    try:
+        response = requests.post(url, headers=headers, json=data)
+        response_json = response.json()
+        
         # LastSeenTime[i] = time.time()
-        # print(i)
-        # pass
+        for driver in response_json.get('drivers', []):
+            if driver['id'] not in done_drive:
+                done_drive.add(driver['id'])
+                for position in driver.get('positions', []):
+                    position_str = f"{position['lat']} {position['lon']}"
+                    printed_positions.add(position_str)
+                    # print(len(printed_positions))
+                    break
+                    # print(position_str) 
 
-        # print(i)
-        for PointC in Points:
-            print(coord.index(PointC))
-            pass
-            # print(f"{LastSeenTime[i]} {time.time()}")
-            data['point'] = PointC
-            try:
-                response = requests.post(url, headers=headers, json=data)
-                response_json = response.json()
-                
-                LastSeenTime[i] = time.time()
-                for driver in response_json.get('drivers', []):
-                    if driver['id'] not in done_drive:
-                        done_drive.add(driver['id'])
-                        for position in driver.get('positions', []):
-                            position_str = f"{position['lat']} {position['lon']}"
-                            printed_positions.add(position_str)
-                            
-                            break
-            except:
-                pass
-        break
+    except Exception as e:
+        print(PointC)
+        process_point(PointC)
+        pass
 
-        # try:
-            # data['point'] = PointC
-            # response = requests.post(url, headers=headers, json=data)
-
-            # response_json = response.json()
-            # print(response_json)
-
-        #     for driver in response_json.get('drivers', []):
-        #         with open(f"data/ew.txt", 'w') as file:
-        #             file.write(str(i) + '\n')
-        #             LastSeenTime[i] = time.time()
-        #         break
-        #         # if driver['id'] not in done_drive:
-        #         #     done_drive.add(driver['id'])
-        #         #     for position in driver.get('positions', []):
-        #         #         position_str = f"{position['lat']} {position['lon']}"
-            
-        #         #         if position_str not in printed_positions:
-        #         #             printed_positions.add(position_str)
-        #         #             break
-        # except Exception as e:
-        #     print(e)
-        #     time.sleep(2)
-        #     pass
+def main():
+    with ThreadPoolExecutor(max_workers=10) as executor:
+        executor.map(process_point, Points)
 
 
-
-import threading
-
-MinDiff=99.00
-
-print(len(coord))
-num = 10
-
-def split_array(array, num_parts):
-    part_size = len(array) // num_parts
-    remainder = len(array) % num_parts
+while True:
+    Points = coord
+    LastSeenTime = [None] * len(Points)
+    done_drive = set()
+    printed_positions = set()
     
-    sub_arrays = []
-    start = 0
-    for i in range(num_parts):
-        end = start + part_size + (1 if i < remainder else 0)
-        sub_arrays.append(array[start:end])
-        start = end
-    
-    return sub_arrays
+    main()
 
+    # print(len(printed_positions))
+    current_time_str = int(time.time())
+    filename = f"data/{current_time_str}.txt"
+    with open(filename, 'a') as f:
+        f.write("\n".join(printed_positions))
 
-splitted = split_array(coord, 100)
-threads = []
+    print(f"{int(time.time())} {len(done_drive)}")
 
-for i, item in enumerate(splitted):
-    thread = threading.Thread(target=DoUpdate, args=(item, i))
-    thread.start() 
-    threads.append(thread)
-
-# thread = threading.Thread(target=CheckforUpdate)
-# thread.start() 
-# threads.append(thread)
-
-for thread in threads:
-    thread.join()
-
-# print(split_array(coord, num))
-
-
-# def Attemp(Funct, arr):
-    # threads = []
-
-    # for i in range(len(arr)):
-    #     thread = threading.Thread(target=Funct, args=(arr[i], i, ))
-    #     thread.start() 
-    #     threads.append(thread)
-
-    # for thread in threads:
-    #     thread.join()
-
-
-
-
-
-# while True:
-#     coord=divise.Devise(PointA, PointB, 0.02)
-#     last = time.time()
-
-#     while (len(done_drive) < 1000):
-#         Attemp(DoUpdate, coord)
-
-#     # print(len(printed_positions))
-#     SafetoTxt(printed_positions)
-#     print(f"{len(done_drive)} {time.time() - last}")
-#     time.sleep(1)
-#     printed_positions.clear()
-#     done_drive.clear()
-
+    printed_positions.clear()
+    done_drive.clear()
