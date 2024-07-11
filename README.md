@@ -6,6 +6,9 @@
 
 
 <h4><p align="center">A scraping tool for to searching and locating Yandex Taxi in the specific area</p></h4>
+<p align="center">
+  <img src="https://github.com/astrosander/Yandex-Taxi-Scraper/assets/69795340/20f67f0d-010b-4db2-a87f-57e566a44bd6" width="480" />
+</p>
 
 ## How it works
 
