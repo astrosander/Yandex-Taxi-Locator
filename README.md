@@ -7,6 +7,15 @@
 
 <h4><p align="center">A scraping tool for to searching and locating Yandex Taxi in the specific area</p></h4>
 
+## How it works
+
+The area we are interested in is bounded by a rectangle with opposite vertices with coordinates `PointA` and `PointB`. Since we can only find out about the nearest cars within a radius of about 3 km, we will break our map into segments of this size, and then get information about each segment and remove repetitive information.
+
+<p align="center">
+  <img src="https://github.com/astrosander/Yandex-Taxi-Scraper/assets/69795340/7711987a-3bc7-4513-a3bc-c230f6c8b324" width="480" /><br>
+  Example of splitting Moscow into equal polygons
+</p>
+<br><br><br>
 
 <p align="center">
   <img src="https://github.com/astrosander/Yandex-Taxi-Scraper/assets/69795340/3be01c60-d30f-42d2-86a9-2893a2eded3f" width="480" />
