@@ -5,7 +5,7 @@
 </p>
 
 
-<h4><p align="center">A scraping tool for to searching and locating Yandex Taxi in the specific area</p></h4>
+<h4><p align="center">A scraping tool for searching and locating Yandex Taxi in the specific area</p></h4>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/66193b30-3ca9-4992-8680-39695f5d3c2c" width="480" />
 </p>
