@@ -21,8 +21,11 @@ The area we are interested in is bounded by a rectangle with opposite vertices w
 <br><br><br>
 
 <p align="center">
-  <img src="https://github.com/astrosander/Yandex-Taxi-Scraper/assets/69795340/3be01c60-d30f-42d2-86a9-2893a2eded3f" width="480" />
+  <img src="https://github.com/user-attachments/assets/0d053aad-6fad-4acb-9c32-d11b4afa8fcd" width="480" /><br>
+  Taxi near Domodedovo Airport (Moscow)
 </p>
+<br><br><br>
+
 <p align="center">
   <img src="https://github.com/astrosander/Yandex-Taxi-Scraper/assets/69795340/b3d93825-cfb6-4fce-98e7-63381495fa60" width="480" />
 </p>
