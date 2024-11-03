@@ -43,11 +43,10 @@ headers = {
 }
 
 
+PointA=[37.584843, 55.758472] #https://www.google.com/maps/place/55.758472+37.584843
+PointB=[37.605252, 55.771669] #https://www.google.com/maps/place/55.771669+37.605252
 
-PointA=[37.104876, 55.573656] #https://www.google.com/maps/place/55.573656+37.104876
-PointB=[38.153215, 55.923838] #https://www.google.com/maps/place/55.923838+38.153215
-
-coord=divise.Devise(PointA, PointB, 0.01)
+coord=divise.Devise(PointA, PointB, 0.005)
 
 printed_positions = set()
 done_drive = set()
