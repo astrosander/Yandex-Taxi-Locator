@@ -1,6 +1,6 @@
 import requests
 import numpy as np
-import divise, time, PlotMap
+import divise, time
 import sys
 import random
 
@@ -44,11 +44,9 @@ headers = {
 
 
 
-PointA=[37.104876, 55.573656]
-PointB=[38.153215, 55.923838]
+PointA=[37.104876, 55.573656] #https://www.google.com/maps/place/55.573656+37.104876
+PointB=[38.153215, 55.923838] #https://www.google.com/maps/place/55.923838+38.153215
 
-# PointA=[29.151358, 52.007652]
-# PointB=[29.270607, 52.103733]
 coord=divise.Devise(PointA, PointB, 0.01)
 
 printed_positions = set()
@@ -76,7 +74,6 @@ def process_point(PointC):
                 for position in driver.get('positions', []):
                     position_str = f"{position['lat']} {position['lon']}"
                     printed_positions.add(position_str)
-                    # print(len(printed_positions))
                     break
                     # print(position_str) 
 

@@ -72,5 +72,5 @@ def get_txt_files(folder_path):
 
     return txt_files
 
-for id in get_txt_files('data'):
-	DrawMap(id)
+# for id in get_txt_files('data'):
+# 	DrawMap(id)
