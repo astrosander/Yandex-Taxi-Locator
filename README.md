@@ -10,6 +10,18 @@
   <img src="https://github.com/user-attachments/assets/66193b30-3ca9-4992-8680-39695f5d3c2c" width="480" />
 </p>
 
+## Installation 
+
+Download or clone the GitHub repository and install the necessary requirements with:
+
+```sh
+pip install -r requirements.txt
+```
+
+Select the region between `PointA` and `PointB` to analyze taxis in the selected region. The larger the selected area, the longer it will take to analyze the region.
+
+Run `main.py`. The saved data would appear in the `data` directory.
+
 ## How it works
 
 The area we are interested in is bounded by a rectangle with opposite vertices with coordinates `PointA` and `PointB`. Since we can only find out about the nearest cars within a radius of about 3 km, we will break our map into segments of this size, and then get information about each segment and remove repetitive information.
